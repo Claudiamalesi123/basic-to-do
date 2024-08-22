@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>To-Do List</h1>
+        </header>
+        <main>
+            <div class="task-list">
+                <ul id="task-list"></ul>
+            </div>
+            <div class="task-form">
+                <form action="/add" method="post">
+                    <input type="text" name="task" placeholder="New task" required />
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+        </main>
+        <footer>
+            <p>Organize your tasks efficiently</p>
+        </footer>
+    </div>
+
+    <script>
+        async function fetchTasks() {
+            const response = await fetch('/tasks');
+            const html = await response.text();
+            document.getElementById('task-list').innerHTML = html;
+        }
+
+        fetchTasks();
+    </script>
+
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: #4CAF50;
+            font-size: 2.2rem;
+            font-weight: bold;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .task-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .task-list li {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #e0f7fa;
+            border-left: 6px solid #4CAF50;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .task-list li:hover {
+            background: #b2ebf2;
+            transform: scale(1.02);
+        }
+
+        .task-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .task-form input {
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            flex: 1;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-form button {
+            padding: 15px 20px;
+            border: none;
+            background-color: #4CAF50;
+            color: #fff;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-form button:hover {
+            background-color: #388E3C;
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        footer p {
+            color: #4CAF50;
+        }
+    </style>
+</body>
+</html>
